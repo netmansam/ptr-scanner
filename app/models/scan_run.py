@@ -3,8 +3,9 @@ from datetime import datetime
 from sqlalchemy import (
     Column,
     Integer,
-    DateTime,
-    String
+    String,
+    Float,
+    DateTime
 )
 
 from app.database.connection import Base
@@ -16,8 +17,7 @@ class ScanRun(Base):
 
     id = Column(
         Integer,
-        primary_key=True,
-        index=True
+        primary_key=True
     )
 
     scan_time = Column(
@@ -25,13 +25,28 @@ class ScanRun(Base):
         default=datetime.utcnow
     )
 
-    market_status = Column(
+    market_bias = Column(
+        String(50)
+    )
+
+    spy_direction = Column(
+        String(50)
+    )
+
+    qqq_direction = Column(
+        String(50)
+    )
+
+    vix_level = Column(
+        Float
+    )
+
+    algorithm_version = Column(
         String(50),
-        default="unknown"
+        default="PTR-0.4.0"
     )
 
     notes = Column(
-        String(255),
-        nullable=True
+        String(255)
     )
 
