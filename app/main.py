@@ -4,6 +4,8 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
+from app.services.health import database_health
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 app = FastAPI(
@@ -21,6 +23,11 @@ def health():
         "status": "online",
         "application": "PTR Scanner"
     }
+
+@app.get("/database-health")
+def db_health():
+
+    return database_health()
 
 
 @app.get("/", response_class=HTMLResponse)
