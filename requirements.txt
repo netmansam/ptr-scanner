@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+sqlalchemy
+pymysql
+python-dotenv
+jinja2
+pandas
+numpy
+requests
+apscheduler
+python-multipart
+
