@@ -80,6 +80,10 @@ class ScanResult(Base):
         Float
     )
 
+    ptr_score = Column(
+        Float
+    )
+
     breakout_level = Column(
         Float
     )
