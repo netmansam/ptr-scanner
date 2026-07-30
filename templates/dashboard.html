@@ -1,63 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background: #f4f4f4;
-        }
+<title>{{ title }}</title>
 
-        h1 {
-            color: #222;
-        }
+<style>
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-        }
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background: #f4f4f4;
+}
 
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
+h1 {
+    color:#222;
+}
 
-        th {
-            background: #e8e8e8;
-        }
-    </style>
+.card {
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:8px;
+}
+
+table {
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+}
+
+th, td {
+    border:1px solid #ccc;
+    padding:10px;
+    text-align:center;
+}
+
+th {
+    background:#e8e8e8;
+}
+
+.good {
+    color:green;
+    font-weight:bold;
+}
+
+.bad {
+    color:red;
+    font-weight:bold;
+}
+
+</style>
+
 </head>
+
 
 <body>
 
+
 <h1>PTR Scanner Dashboard</h1>
 
-<p><strong>System Status:</strong> Online</p>
+
+{% if scan %}
+
+<div class="card">
+
+<h2>Latest Market Scan</h2>
+
+<p>
+<strong>Scan Time:</strong>
+{{ scan.run.scan_time }}
+</p>
+
+<p>
+<strong>Market Bias:</strong>
+{{ scan.run.market_bias }}
+</p>
+
+<p>
+<strong>SPY:</strong>
+{{ scan.run.spy_direction }}
+</p>
+
+<p>
+<strong>QQQ:</strong>
+{{ scan.run.qqq_direction }}
+</p>
+
+<p>
+<strong>VIX:</strong>
+{{ scan.run.vix_level }}
+</p>
+
+<p>
+<strong>Algorithm:</strong>
+{{ scan.run.algorithm_version }}
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>Top PTR Candidates</h2>
+
 
 <table>
-    <thead>
-        <tr>
-            <th>Rank</th>
-            <th>Ticker</th>
-            <th>PTR Score</th>
-            <th>Breakout</th>
-            <th>Status</th>
-        </tr>
-    </thead>
 
-    <tbody>
-        <tr>
-            <td colspan="5" style="text-align:center;">
-                Waiting for morning scan...
-            </td>
-        </tr>
-    </tbody>
+<thead>
+
+<tr>
+<th>Rank</th>
+<th>Ticker</th>
+<th>PTR Score</th>
+<th>Confidence</th>
+<th>No Trade</th>
+<th>Breakout</th>
+<th>Status</th>
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+{% for stock in scan.results %}
+
+<tr>
+
+<td>{{ stock.scan_rank }}</td>
+
+<td>
+<strong>{{ stock.ticker }}</strong>
+</td>
+
+<td>
+{{ stock.ptr_score }}
+</td>
+
+<td>
+{{ stock.confidence_score }}
+</td>
+
+<td>
+{{ stock.no_trade_score }}
+</td>
+
+<td>
+{{ stock.breakout_level or "-" }}
+</td>
+
+
+<td>
+
+{% if stock.passed_scan %}
+
+<span class="good">
+PASS
+</span>
+
+{% else %}
+
+<span class="bad">
+REJECT
+</span>
+
+{% endif %}
+
+</td>
+
+
+</tr>
+
+{% endfor %}
+
+
+</tbody>
+
 </table>
 
+
+</div>
+
+
+{% else %}
+
+<div class="card">
+
+<h2>No scans available</h2>
+
+<p>
+Waiting for first scan...
+</p>
+
+</div>
+
+{% endif %}
+
+
 </body>
+
 </html>

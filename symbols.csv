@@ -1,0 +1,6 @@
+ticker,company_name,exchange,sector,industry,shares_outstanding,float_shares,market_cap
+AAPL,Apple Inc,NASDAQ,Technology,Consumer Electronics,15000000000,15000000000,3000000000000
+MSFT,Microsoft Corp,NASDAQ,Technology,Software,7400000000,7400000000,3000000000000
+NVDA,NVIDIA Corp,NASDAQ,Technology,Semiconductors,24500000000,23000000000,4000000000000
+TSLA,Tesla Inc,NASDAQ,Consumer Cyclical,Auto Manufacturers,3200000000,2800000000,1000000000000
+AMD,Advanced Micro Devices,NASDAQ,Technology,Semiconductors,1600000000,1500000000,250000000000
